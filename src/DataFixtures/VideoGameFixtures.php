@@ -2,13 +2,21 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Editor;
 use App\Entity\VideoGame;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class VideoGameFixtures extends Fixture
+class VideoGameFixtures extends Fixture implements DependentFixtureInterface
 {
+    public function getDependencies(): array
+    {
+        return [
+            EditorFixtures::class,
+        ];
+    }
     public function load(ObjectManager $manager): void
     {
         $videoGames = [
@@ -23,7 +31,8 @@ class VideoGameFixtures extends Fixture
             $videoGame->setTitle($gameData['title'])
                 ->setReleaseDate(new DateTime($gameData['releaseDate']))
                 ->setDescription($gameData['description']);
-
+            $editorRef = EditorFixtures::EDITOR_ID.rand(0, 2);
+            $videoGame->setEditor($this->getReference($editorRef, Editor::class));
             $manager->persist($videoGame);
         }
 

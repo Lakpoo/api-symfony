@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -19,10 +20,7 @@ class CategoryController extends AbstractController
     public function index(CategoryRepository $categoryRepository, SerializerInterface $serializer): JsonResponse
     {
         $categoryList = $categoryRepository->findAll();
-
-        $jsonCategory = $serializer->serialize($categoryList, 'json', ['groups' => 'getCategory']);
-
-        return $this->json([$jsonCategory, JsonResponse::HTTP_OK, [], true, ['groups' => 'getCategory']]);
+        return $this->json($categoryList, Response::HTTP_OK, [], ['groups' => 'getCategory']);
     }
 
     #[Route('/api/v1/category/{id}', name: 'category_show', methods: ['GET'])]
@@ -30,9 +28,9 @@ class CategoryController extends AbstractController
     {
         $category = $categoryRepository->find($id);
         if ($category) {
-            return $this->json([$category, JsonResponse::HTTP_OK, [], true, ['groups' => 'getCategory']]);
+            return $this->json($category, Response::HTTP_OK, [], ['groups' => 'getCategory']);
         }
-        return new JsonResponse(null, JsonResponse::HTTP_NOT_FOUND);
+        return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
     #[Route('/api/v1/category', name: 'category_create', methods: ['POST'])]
@@ -48,7 +46,7 @@ class CategoryController extends AbstractController
             UrlGeneratorInterface::ABSOLUTE_URL
         );
 
-        return $this->json($category, JsonResponse::HTTP_CREATED, ['Location' => $location], ['groups' => 'getCategory']);
+        return $this->json($category, Response::HTTP_CREATED, ['Location' => $location], ['groups' => 'getCategory']);
     }
 
     #[Route('/api/v1/category/{id}', name: 'category_update', methods: ['PUT'])]
@@ -68,15 +66,15 @@ class CategoryController extends AbstractController
             UrlGeneratorInterface::ABSOLUTE_URL
         );
 
-        return $this->json(['status' => 'success'], JsonResponse::HTTP_OK, ['Location' => $location]);
+        return $this->json(['status' => 'success'], Response::HTTP_OK, ['Location' => $location]);
     }
 
     #[Route('/api/v1/category/{id}', name: 'category_delete', methods: ['DELETE'])]
-    public function delete(Category $category, EntityManagerInterface $entityManager): JsonResponse
+    public function deleteCategory(Category $category, EntityManagerInterface $entityManager): JsonResponse
     {
         $entityManager->remove($category);
         $entityManager->flush();
 
-        return $this->json(['status' => 'success'], JsonResponse::HTTP_OK);
+        return $this->json(['status' => 'success'], Response::HTTP_OK);
     }
 }

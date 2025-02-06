@@ -5,10 +5,10 @@ namespace App\Controller;
 use App\Entity\VideoGame;
 use App\Repository\VideoGameRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -20,10 +20,7 @@ class VideoGameController extends AbstractController
     public function index(VideoGameRepository $gameRepository, SerializerInterface $serializer): JsonResponse
     {
         $gameList = $gameRepository->findAll();
-
-        $jsonGame = $serializer->serialize($gameList, 'json', ['groups' => 'getGame']);
-
-        return $this->json([$jsonGame, Response::HTTP_OK, [], true, ['groups' => 'getGame']]);
+        return $this->json($gameList, Response::HTTP_OK, [], ['groups' => 'getGame']);
     }
 
     #[Route('/api/v1/game/{id}', name: 'game_show', methods: ['GET'])]
@@ -31,7 +28,7 @@ class VideoGameController extends AbstractController
     {
         $game = $gameRepository->find($id);
         if ($game) {
-            return $this->json([$game, Response::HTTP_OK, [], true, ['groups' => 'getGame']]);
+            return $this->json($game, Response::HTTP_OK, [], ['groups' => 'getGame']);
         }
         return new jsonResponse(null, Response::HTTP_NOT_FOUND);
     }
