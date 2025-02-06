@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VideoGameRepository::class)]
 class VideoGame
@@ -15,19 +16,31 @@ class VideoGame
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['getGame', 'videogame:read'])]
+    #[Groups(['getGame'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['getGame'])]
+    #[Assert\NotBlank(message: 'The title should not be blank.')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'The title cannot be longer than {{ limit }} characters.'
+    )]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups(['getGame'])]
+    #[Assert\NotBlank(message: 'The release date should not be blank.')]
+    #[Assert\Date(message: 'The release date should be a valid date.')]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['getGame'])]
+    #[Assert\NotBlank(message: 'The description should not be blank.')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'The description cannot be longer than {{ limit }} characters.'
+    )]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'videoGames')]
