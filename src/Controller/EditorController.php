@@ -23,7 +23,7 @@ class EditorController extends AbstractController
         return $this->json($editorList, Response::HTTP_OK, [], ['groups' => 'getEditor']);
     }
 
-    #[Route('/api/v1/editor/{id}', name: 'editor_show', methods: ['GET'])]
+    #[Route('/api/v1/editor/{id}', name: 'editor_show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function showEditor(EditorRepository $editorRepository, SerializerInterface $serializer, $id): JsonResponse
     {
         $editor = $editorRepository->find($id);
@@ -49,7 +49,7 @@ class EditorController extends AbstractController
         return $this->json($editor, Response::HTTP_CREATED, ['Location' => $location], ['groups' => 'getEditor']);
     }
 
-    #[Route('/api/v1/editor/{id}', name: 'editor_update', methods: ['PUT'])]
+    #[Route('/api/v1/editor/{id}', name: 'editor_update', requirements: ['id' => '\d+'], methods: ['PUT'])]
     public function updateEditor(Request $request, SerializerInterface $serializer, Editor $currentEditor, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator): JsonResponse
     {
         $updatedEditor = $serializer->deserialize($request->getContent(),
@@ -69,7 +69,7 @@ class EditorController extends AbstractController
         return $this->json(['status' => 'success'], Response::HTTP_OK, ['Location' => $location]);
     }
 
-    #[Route('/api/v1/editor/{id}', name: 'editor_delete', methods: ['DELETE'])]
+    #[Route('/api/v1/editor/{id}', name: 'editor_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
     public function deleteEditor(Editor $editor, EntityManagerInterface $entityManager): JsonResponse
     {
         $entityManager->remove($editor);

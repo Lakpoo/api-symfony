@@ -23,7 +23,7 @@ class CategoryController extends AbstractController
         return $this->json($categoryList, Response::HTTP_OK, [], ['groups' => 'getCategory']);
     }
 
-    #[Route('/api/v1/category/{id}', name: 'category_show', methods: ['GET'])]
+    #[Route('/api/v1/category/{id}', name: 'category_show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function showCategory(CategoryRepository $categoryRepository, SerializerInterface $serializer, $id): JsonResponse
     {
         $category = $categoryRepository->find($id);
@@ -49,7 +49,7 @@ class CategoryController extends AbstractController
         return $this->json($category, Response::HTTP_CREATED, ['Location' => $location], ['groups' => 'getCategory']);
     }
 
-    #[Route('/api/v1/category/{id}', name: 'category_update', methods: ['PUT'])]
+    #[Route('/api/v1/category/{id}', name: 'category_update', requirements: ['id' => '\d+'], methods: ['PUT'])]
     public function updateCategory(Request $request, SerializerInterface $serializer, Category $currentCategory, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator): JsonResponse
     {
         $updatedCategory = $serializer->deserialize($request->getContent(),
@@ -69,7 +69,7 @@ class CategoryController extends AbstractController
         return $this->json(['status' => 'success'], Response::HTTP_OK, ['Location' => $location]);
     }
 
-    #[Route('/api/v1/category/{id}', name: 'category_delete', methods: ['DELETE'])]
+    #[Route('/api/v1/category/{id}', name: 'category_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
     public function deleteCategory(Category $category, EntityManagerInterface $entityManager): JsonResponse
     {
         $entityManager->remove($category);
