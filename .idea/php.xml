@@ -82,11 +82,11 @@
       <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
       <path value="$PROJECT_DIR$/vendor/psr/clock" />
       <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
-      <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
-      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
-      <path value="$PROJECT_DIR$/vendor/lexik/jwt-authentication-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/validator" />
       <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/lexik/jwt-authentication-bundle" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

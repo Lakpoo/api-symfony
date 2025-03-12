@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79b98e16982ff21c132d23e0d5ca8918",
+    "content-hash": "09cefd3a965e95b79fb5540ab00a87c4",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -5091,16 +5091,16 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v7.2.3",
+            "version": "v7.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "6faf9f671d522b76ce87e46a1d2d7740b4385c6f"
+                "reference": "00936b34ef29d0e0e9a5340bbce6e7562092da56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/6faf9f671d522b76ce87e46a1d2d7740b4385c6f",
-                "reference": "6faf9f671d522b76ce87e46a1d2d7740b4385c6f",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/00936b34ef29d0e0e9a5340bbce6e7562092da56",
+                "reference": "00936b34ef29d0e0e9a5340bbce6e7562092da56",
                 "shasum": ""
             },
             "require": {
@@ -5168,7 +5168,7 @@
             "description": "Provides tools to validate values",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/validator/tree/v7.2.3"
+                "source": "https://github.com/symfony/validator/tree/v7.2.4"
             },
             "funding": [
                 {
@@ -5184,7 +5184,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-01-28T15:51:35+00:00"
+            "time": "2025-02-21T09:47:16+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -5860,15 +5860,14 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.2",
         "ext-ctype": "*",
-        "ext-http": "*",
         "ext-iconv": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
